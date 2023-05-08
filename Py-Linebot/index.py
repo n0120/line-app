@@ -33,12 +33,19 @@ def callback():
 # MessageEventの場合の処理を実行する関数を定義します
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # 送信元のメッセージに返信する機能
+    received_text = event.message.text
+
+    # 受信したメッセージに「1」が含まれているかチェック
+    if '1' in received_text:
+        reply_text = '2'
+    else:
+        reply_text = received_text
+
     line_bot_api.reply_message(
         event.reply_token,
-        # メッセージを送信（直前のメッセージをそのまま送信）
-        TextSendMessage(text=event.message.text)
+        TextSendMessage(text=reply_text)
     )
+
 
 
 if __name__ == "__main__":
